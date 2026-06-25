@@ -1,4 +1,5 @@
 
+
 CREATE TABLE site (
     site_name VARCHAR(200) NOT NULL,
     site_id SERIAL PRIMARY KEY,
@@ -37,10 +38,11 @@ CREATE TABLE course (
     difficulty_level VARCHAR(20) DEFAULT 'basic',
     is_active BOOLEAN DEFAULT TRUE
 );
+
 CREATE TABLE education_leader (
     leader_id INTEGER PRIMARY KEY REFERENCES person(person_id) ON DELETE CASCADE,
-    department VARCHAR(100)
-    employee_number VARCHAR(25) UNIQUE NOT NULL,
+    department VARCHAR(100),
+    employee_number VARCHAR(25) UNIQUE NOT NULL
 );
 
 CREATE TABLE person_details (
@@ -67,4 +69,45 @@ CREATE TABLE student_enrollment (
     grade VARCHAR(2),
     status VARCHAR(20) DEFAULT 'enrolled',
     UNIQUE (student_id, assignment_id)
+);
+
+CREATE TABLE class (
+    class_id SERIAL PRIMARY KEY,
+    program_id INTEGER NOT NULL REFERENCES program(program_id),
+    leader_id INTEGER NOT NULL REFERENCES education_leader(leader_id),
+    site_id INTEGER NOT NULL REFERENCES site(site_id),
+    class_name VARCHAR(50) NOT NULL,
+    class_code VARCHAR(50) UNIQUE NOT NULL,
+    iteration INTEGER NOT NULL CHECK (iteration BETWEEN 1 AND 3),
+    start_date DATE,
+    end_date DATE,
+    max_students INTEGER DEFAULT 30,
+    status VARCHAR(20) DEFAULT 'planned',
+    UNIQUE (program_id, iteration, class_code)
+);
+
+CREATE TABLE educator (
+    educator_id INTEGER PRIMARY KEY REFERENCES person(person_id) ON DELETE CASCADE,
+    is_permanent BOOLEAN DEFAULT FALSE,
+    employee_number VARCHAR(25) UNIQUE NOT NULL,
+    employment_date DATE,
+    hourly_rate NUMERIC(10,2)
+);
+
+CREATE TABLE program_course (
+    program_id INTEGER REFERENCES program(program_id) ON DELETE CASCADE,
+    course_id INTEGER REFERENCES course(course_id) ON DELETE CASCADE,
+    is_mandatory BOOLEAN DEFAULT TRUE,
+    semester INTEGER,
+    PRIMARY KEY (program_id, course_id)
+);
+
+CREATE TABLE course_assignment (
+    assignment_id SERIAL PRIMARY KEY,
+    course_id INTEGER NOT NULL REFERENCES course(course_id),
+    educator_id INTEGER NOT NULL REFERENCES educator(educator_id),
+    class_id INTEGER NOT NULL REFERENCES class(class_id),
+    start_date DATE,
+    end_date DATE,
+    UNIQUE (course_id, class_id)
 );
