@@ -1,5 +1,5 @@
 
-
+-- Skolans anläggningar och plats
 CREATE TABLE site (
     site_name VARCHAR(200) NOT NULL,
     site_id SERIAL PRIMARY KEY,
@@ -10,6 +10,7 @@ CREATE TABLE site (
     phone VARCHAR(20)
 );
 
+-- Info om personer (student, lärare, utbildare, konsult)
 CREATE TABLE person (
     person_id SERIAL PRIMARY KEY,
     first_name VARCHAR(100) NOT NULL,
@@ -18,6 +19,7 @@ CREATE TABLE person (
     birth_date DATE
 );
 
+-- Vad för program
 CREATE TABLE program (
     program_name VARCHAR(100) NOT NULL,
     program_id SERIAL PRIMARY KEY,
@@ -28,6 +30,7 @@ CREATE TABLE program (
     is_active BOOLEAN DEFAULT TRUE
 );
 
+-- Vad för kurser
 CREATE TABLE course (
     course_name VARCHAR(200) NOT NULL,
     course_id SERIAL PRIMARY KEY,   
@@ -39,12 +42,14 @@ CREATE TABLE course (
     is_active BOOLEAN DEFAULT TRUE
 );
 
+-- Utbildningsledare
 CREATE TABLE education_leader (
     leader_id INTEGER PRIMARY KEY REFERENCES person(person_id) ON DELETE CASCADE,
     department VARCHAR(100),
     employee_number VARCHAR(25) UNIQUE NOT NULL
 );
 
+-- Detaljer om personer
 CREATE TABLE person_details (
     person_detail_id SERIAL PRIMARY KEY,
     person_id INTEGER UNIQUE NOT NULL REFERENCES person(person_id) ON DELETE CASCADE,
@@ -52,6 +57,7 @@ CREATE TABLE person_details (
     email VARCHAR(300) UNIQUE NOT NULL
 );
 
+-- Student/Elevers information
 CREATE TABLE student (
     student_id INTEGER PRIMARY KEY REFERENCES person(person_id) ON DELETE CASCADE,
     program_id INTEGER NOT NULL REFERENCES program(program_id),
@@ -61,6 +67,7 @@ CREATE TABLE student (
     status VARCHAR(20) DEFAULT 'active'
 );
 
+-- Inskrivnings datum för studenter
 CREATE TABLE student_enrollment (
     enrollment_id SERIAL PRIMARY KEY,
     student_id INTEGER NOT NULL REFERENCES student(student_id) ON DELETE CASCADE,
@@ -71,6 +78,7 @@ CREATE TABLE student_enrollment (
     UNIQUE (student_id, assignment_id)
 );
 
+-- Klasser
 CREATE TABLE class (
     class_id SERIAL PRIMARY KEY,
     program_id INTEGER NOT NULL REFERENCES program(program_id),
@@ -86,6 +94,7 @@ CREATE TABLE class (
     UNIQUE (program_id, iteration, class_code)
 );
 
+-- Lärare/utbildare
 CREATE TABLE educator (
     educator_id INTEGER PRIMARY KEY REFERENCES person(person_id) ON DELETE CASCADE,
     is_permanent BOOLEAN DEFAULT FALSE,
@@ -94,6 +103,7 @@ CREATE TABLE educator (
     hourly_rate NUMERIC(10,2)
 );
 
+-- Program och kurser
 CREATE TABLE program_course (
     program_id INTEGER REFERENCES program(program_id) ON DELETE CASCADE,
     course_id INTEGER REFERENCES course(course_id) ON DELETE CASCADE,
@@ -102,6 +112,7 @@ CREATE TABLE program_course (
     PRIMARY KEY (program_id, course_id)
 );
 
+-- Kursuppgifter 
 CREATE TABLE course_assignment (
     assignment_id SERIAL PRIMARY KEY,
     course_id INTEGER NOT NULL REFERENCES course(course_id),
