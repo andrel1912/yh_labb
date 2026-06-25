@@ -111,3 +111,13 @@ CREATE TABLE course_assignment (
     end_date DATE,
     UNIQUE (course_id, class_id)
 );
+
+CREATE INDEX idx_person_type ON person(person_type); 
+CREATE INDEX idx_person_birth_date ON person(birth_date);
+CREATE INDEX idx_student_class ON student(class_id); 
+CREATE INDEX idx_student_enrollment_status ON student_enrollment(status);
+CREATE INDEX idx_class_status ON class(status);
+CREATE INDEX idx_class_program ON class(program_id);
+CREATE INDEX idx_course_assignment_class ON course_assignment(class_id);
+CREATE INDEX idx_course_standalone ON course(is_standalone);
+CREATE INDEX idx_program_active ON program(is_active);
