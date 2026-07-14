@@ -362,3 +362,19 @@ JOIN site s ON cl.site_id = s.site_id
 JOIN education_leader el ON cl.leader_id = el.leader_id
 JOIN person leader_person ON el.leader_id = leader_person.person_id
 WHERE st.student_id = 25;
+
+-- Q15 Vilka kurser som studenterna är inskrivna på
+SELECT
+    st.student_number,
+    CONCAT(sp.first_name, ' ', sp.last_name) AS student_name,
+    co.course_name,
+    se.status,
+    se.grade,
+    ca.start_date,
+    ca.end_date
+FROM student_enrollment se
+JOIN student st ON se.student_id = st.student_id
+JOIN person sp ON st.student_id = sp.person_id
+JOIN course_assignment ca ON se.assignment_id = ca.assignment_id
+JOIN course co ON ca.course_id = co.course_id
+ORDER BY student_name, ca.start_date;
