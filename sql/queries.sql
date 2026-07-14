@@ -140,7 +140,7 @@ GROUP BY
     c.max_students
 ORDER BY c.start_date, s.city;
 
--- Q3 Program och deras kurser
+-- Q3 Program och kurser
 SELECT 
     p.program_name,
     co.course_code,
@@ -155,3 +155,62 @@ FROM program p
 JOIN program_course pc ON p.program_id = pc.program_id
 JOIN course co ON pc.course_id = co.course_id
 ORDER BY p.program_name, pc.semester, co.course_name;
+
+-- Q4 Specifik student information
+SELECT
+    st.student_number,
+    CONCAT(per.first_name, ' ', per.last_name) AS student_name,
+    p.program_name,
+    c.class_name,
+    COUNT(se.enrollment_id) AS number_of_course_enrollments
+FROM student st
+JOIN person per ON st.student_id = per.person_id
+JOIN program p ON st.program_id = p.program_id
+JOIN class c ON st.class_id = c.class_id
+LEFT JOIN student_enrollment se ON st.student_id = se.student_id
+WHERE st.class_id = 1
+GROUP BY 
+    st.student_id,
+    st.student_number,
+    per.first_name,
+    per.last_name,
+    p.program_name,
+    c.class_name
+ORDER BY per.last_name;
+
+-- Q5 Kurser i en klass
+SELECT
+    c.class_name,
+    co.course_code,
+    co.course_name,
+    co.credits,
+    co.difficulty_level,
+    ca.start_date AS course_start,
+    ca.end_date AS course_end,
+    CONCAT(per.first_name, ' ', per.last_name) AS educator_name,
+    CASE 
+        WHEN e.is_permanent THEN 'Fast anställd'
+        ELSE 'Konsult/visstid'
+    END AS employment_type
+FROM course_assignment ca
+JOIN class c ON ca.class_id = c.class_id
+JOIN course co ON ca.course_id = co.course_id
+JOIN educator e ON ca.educator_id = e.educator_id
+JOIN person per ON e.educator_id = per.person_id
+WHERE ca.class_id = 1
+ORDER BY ca.start_date;
+
+-- Q6 Utbildningsledare och deras klasser
+SELECT 
+    CONCAT(p.first_name, ' ', p.last_name) AS leader_name,
+    el.department,
+    COUNT(cl.class_id) AS number_of_classes
+FROM education_leader el
+JOIN person p ON el.leader_id = p.person_id
+LEFT JOIN class cl ON el.leader_id = cl.leader_id
+GROUP BY 
+    el.leader_id,
+    p.first_name,
+    p.last_name,
+    el.department
+ORDER BY number_of_classes DESC;
