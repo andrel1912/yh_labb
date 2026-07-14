@@ -214,3 +214,82 @@ GROUP BY
     p.last_name,
     el.department
 ORDER BY number_of_classes DESC;
+
+-- Q7 Utbildare
+SELECT 
+    CONCAT(per.first_name, ' ', per.last_name) AS educator_name,
+    CASE 
+        WHEN e.is_permanent THEN 'Fast anställd'
+        ELSE 'Konsult/visstid'
+    END AS employment_type,
+    e.hourly_rate,
+    COUNT(DISTINCT ca.assignment_id) AS number_of_course_assignments
+FROM educator e
+JOIN person per ON e.educator_id = per.person_id
+LEFT JOIN course_assignment ca ON e.educator_id = ca.educator_id
+GROUP BY 
+    e.educator_id,
+    per.first_name,
+    per.last_name,
+    e.is_permanent,
+    e.hourly_rate
+ORDER BY number_of_course_assignments DESC, educator_name;
+
+-- Q8 fristående kurser
+
+SELECT 
+    co.course_code,
+    co.course_name,
+    co.credits,
+    cl.class_name,
+    CONCAT(per.first_name, ' ', per.last_name) AS educator_name,
+    ca.start_date,
+    ca.end_date,
+    s.site_name,
+    s.city
+FROM course co
+JOIN course_assignment ca ON co.course_id = ca.course_id
+JOIN class cl ON ca.class_id = cl.class_id
+JOIN educator e ON ca.educator_id = e.educator_id
+JOIN person per ON e.educator_id = per.person_id
+JOIN site s ON cl.site_id = s.site_id
+WHERE co.is_standalone = TRUE
+ORDER BY ca.start_date;
+
+-- Q9
+
+SELECT 
+    p.program_name,
+    s.city,
+    cl.iteration,
+    COUNT(st.student_id) AS number_of_students,
+    cl.max_students
+FROM program p
+JOIN class cl ON p.program_id = cl.program_id
+JOIN site s ON cl.site_id = s.site_id
+LEFT JOIN student st ON cl.class_id = st.class_id
+GROUP BY 
+    p.program_name,
+    s.city,
+    cl.iteration,
+    cl.max_students
+ORDER BY p.program_name, s.city, cl.iteration;
+
+-- Q10 
+
+SELECT 
+    st.student_number,
+    CONCAT(student_person.first_name, ' ', student_person.last_name) AS student_name,
+    co.course_name,
+    se.grade,
+    se.status,
+    CONCAT(educator_person.first_name, ' ', educator_person.last_name) AS educator_name
+FROM student_enrollment se
+JOIN student st ON se.student_id = st.student_id
+JOIN person student_person ON st.student_id = student_person.person_id
+JOIN course_assignment ca ON se.assignment_id = ca.assignment_id
+JOIN course co ON ca.course_id = co.course_id
+JOIN educator e ON ca.educator_id = e.educator_id
+JOIN person educator_person ON e.educator_id = educator_person.person_id
+WHERE se.grade IS NOT NULL
+ORDER BY student_person.last_name, co.course_name;
