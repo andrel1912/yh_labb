@@ -294,7 +294,7 @@ JOIN person educator_person ON e.educator_id = educator_person.person_id
 WHERE se.grade IS NOT NULL
 ORDER BY student_person.last_name, co.course_name;
 
--- Q11 Konsulter
+-- Q11 Registrerade konsulter i person-tabellen
 
 SELECT 
     p.person_id,
