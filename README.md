@@ -27,5 +27,5 @@ Each table has a primary key, and every column stores a single value. There are 
 The data is divided into separate tables so that each attribute belongs to the correct entity. Relationships between tables are handled with foreign keys instead of storing the same information multiple times.
 
 **Third Normal Form (3NF)**  
-Information that belongs together is stored in its own table. For example, details about a school site are kept in the **site** table, while classes only store a reference to the site. 
-Personal information is also separated into **person** and "person_details", making it easier to update data without creating duplicates.
+Information that belongs together is stored in its own table. For example, details about a school site are kept in the ***site*** table, while classes only store a reference to the site. 
+Personal information is also separated into ***person*** and "person_details", making it easier to update data without creating duplicates.
