@@ -215,7 +215,7 @@ GROUP BY
     el.department
 ORDER BY number_of_classes DESC;
 
--- Q7 Utbildare
+-- Q7 Alla utbildare och antal kurser de undervisar i 
 SELECT 
     CONCAT(per.first_name, ' ', per.last_name) AS educator_name,
     CASE 
@@ -256,7 +256,7 @@ JOIN site s ON cl.site_id = s.site_id
 WHERE co.is_standalone = TRUE
 ORDER BY ca.start_date;
 
--- Q9
+-- Q9 Statistik över antal studenter per program och stad
 
 SELECT 
     p.program_name,
@@ -275,7 +275,7 @@ GROUP BY
     cl.max_students
 ORDER BY p.program_name, s.city, cl.iteration;
 
--- Q10 
+-- Q10 Studenters kursdeltagande och betyg
 
 SELECT 
     st.student_number,
@@ -293,3 +293,5 @@ JOIN educator e ON ca.educator_id = e.educator_id
 JOIN person educator_person ON e.educator_id = educator_person.person_id
 WHERE se.grade IS NOT NULL
 ORDER BY student_person.last_name, co.course_name;
+
+-- Q11 
