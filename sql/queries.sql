@@ -329,3 +329,36 @@ SELECT
     COUNT(*) AS amount
 FROM person
 WHERE person_type = 'consultant';
+
+-- Q13 Översikt per stad
+
+SELECT 
+    s.city,
+    COUNT(DISTINCT cl.class_id) AS number_of_classes,
+    COUNT(DISTINCT st.student_id) AS number_of_students,
+    COUNT(DISTINCT p.program_id) AS number_of_programs
+FROM site s
+LEFT JOIN class cl ON s.site_id = cl.site_id
+LEFT JOIN student st ON cl.class_id = st.class_id
+LEFT JOIN program p ON cl.program_id = p.program_id
+GROUP BY s.city
+ORDER BY number_of_students DESC, s.city;
+ 
+-- Q14 Studentöversikt för en specifik student
+
+SELECT 
+    st.student_number,
+    CONCAT(per.first_name, ' ', per.last_name) AS student_name,
+    p.program_name,
+    cl.class_name,
+    s.site_name,
+    s.city,
+    CONCAT(leader_person.first_name, ' ', leader_person.last_name) AS leader_name
+FROM student st
+JOIN person per ON st.student_id = per.person_id
+JOIN program p ON st.program_id = p.program_id
+JOIN class cl ON st.class_id = cl.class_id
+JOIN site s ON cl.site_id = s.site_id
+JOIN education_leader el ON cl.leader_id = el.leader_id
+JOIN person leader_person ON el.leader_id = leader_person.person_id
+WHERE st.student_id = 25;
