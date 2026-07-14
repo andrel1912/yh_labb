@@ -119,3 +119,39 @@ SELECT
     COUNT(st.student_id) AS number_of_students,
     c.max_students
 FROM class c
+JOIN program p ON c.program_id = p.program_id
+JOIN education_leader el ON c.leader_id = el.leader_id
+JOIN person per ON el.leader_id = per.person_id
+JOIN site s ON c.site_id = s.site_id
+LEFT JOIN student st ON c.class_id = st.class_id
+GROUP BY 
+    c.class_id,
+    c.class_code,
+    c.class_name,
+    p.program_name,
+    per.first_name,
+    per.last_name,
+    s.site_name,
+    s.city,
+    c.iteration,
+    c.start_date,
+    c.end_date,
+    c.status,
+    c.max_students
+ORDER BY c.start_date, s.city;
+
+-- Q3 Program och deras kurser
+SELECT 
+    p.program_name,
+    co.course_code,
+    co.course_name,
+    co.credits,
+    CASE 
+        WHEN pc.is_mandatory THEN 'Obligatorisk'
+        ELSE 'Valfri'
+    END AS course_type,
+    pc.semester
+FROM program p
+JOIN program_course pc ON p.program_id = pc.program_id
+JOIN course co ON pc.course_id = co.course_id
+ORDER BY p.program_name, pc.semester, co.course_name;
