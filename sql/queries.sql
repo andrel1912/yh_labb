@@ -294,4 +294,38 @@ JOIN person educator_person ON e.educator_id = educator_person.person_id
 WHERE se.grade IS NOT NULL
 ORDER BY student_person.last_name, co.course_name;
 
--- Q11 
+-- Q11 Konsulter
+
+SELECT 
+    p.person_id,
+    CONCAT(p.first_name, ' ', p.last_name) AS consultant_name,
+    pd.email,
+    p.birth_date
+FROM person p
+JOIN person_details pd ON p.person_id = pd.person_id
+WHERE p.person_type = 'consultant'
+ORDER BY consultant_name;
+
+-- Q12 Personal
+
+SELECT 
+    'Fast anställda utbildare' AS category,
+    COUNT(*) AS amount
+FROM educator
+WHERE is_permanent = TRUE
+
+UNION ALL
+
+SELECT 
+    'Ej fasta utbildare' AS category,
+    COUNT(*) AS amount
+FROM educator
+WHERE is_permanent = FALSE
+
+UNION ALL
+
+SELECT 
+    'Konsulter i person-tabellen' AS category,
+    COUNT(*) AS amount
+FROM person
+WHERE person_type = 'consultant';
