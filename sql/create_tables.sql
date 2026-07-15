@@ -42,7 +42,7 @@ CREATE TABLE program (
     description TEXT,
     is_active BOOLEAN DEFAULT TRUE
 );
-
+-- Konsulter
 CREATE TABLE consultant (
     consultant_id INTEGER PRIMARY KEY
         REFERENCES person(person_id) ON DELETE CASCADE,
