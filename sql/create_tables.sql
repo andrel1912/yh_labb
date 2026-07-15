@@ -43,6 +43,16 @@ CREATE TABLE program (
     is_active BOOLEAN DEFAULT TRUE
 );
 
+CREATE TABLE consultant (
+    consultant_id INTEGER PRIMARY KEY
+        REFERENCES person(person_id) ON DELETE CASCADE,
+
+    company_name VARCHAR(150),
+    hourly_rate NUMERIC(10,2),
+    contract_start_date DATE,
+    contract_end_date DATE
+);
+
 -- Kurser
 CREATE TABLE course (
     course_id SERIAL PRIMARY KEY,
