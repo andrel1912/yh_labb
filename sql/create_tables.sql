@@ -106,6 +106,31 @@ CREATE TABLE educator (
     hourly_rate NUMERIC(10,2)
 );
 
+-- Konsultföretag
+CREATE TABLE consultant_company (
+    company_id SERIAL PRIMARY KEY,
+    company_name VARCHAR(150) NOT NULL UNIQUE,
+    organization_number VARCHAR(20) UNIQUE,
+    city VARCHAR(100),
+    email VARCHAR(150),
+    phone VARCHAR(20)
+);
+
+-- Konsultinformation
+CREATE TABLE consultant (
+    consultant_id INTEGER PRIMARY KEY
+        REFERENCES person(person_id) ON DELETE CASCADE,
+
+    company_id INTEGER NOT NULL
+        REFERENCES consultant_company(company_id),
+
+    hourly_rate NUMERIC(10,2) NOT NULL,
+    contract_start_date DATE,
+    contract_end_date DATE,
+    specialization VARCHAR(100)
+);
+
+
 -- Program och kurser
 CREATE TABLE program_course (
     program_id INTEGER REFERENCES program(program_id) ON DELETE CASCADE,

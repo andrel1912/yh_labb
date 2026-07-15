@@ -1,7 +1,7 @@
 
-TRUNCATE student_enrollment, course_assignment, program_course, student,
-         educator, class, education_leader, person_details, course, program,
-         person, site RESTART IDENTITY CASCADE;
+TRUNCATE student_enrollment, course_assignment, program_course, consultant, consultant_company,
+         student, educator, class, education_leader, person_details, course, program, person, site
+RESTART IDENTITY CASCADE;
 
 -- Grunddata: anläggningar
 
@@ -122,6 +122,20 @@ INSERT INTO educator (educator_id, is_permanent, employee_number, employment_dat
 (16, FALSE, 'ED-2003', NULL, 640.00),
 (17, FALSE, 'ED-2004', NULL, 630.00),
 (18, FALSE, 'ED-2005', NULL, 660.00);
+
+
+-- Konsulter
+INSERT INTO consultant (consultant_id, company_id, specialization, hourly_rate, contract_start_date, contract_end_date) VALUES
+(19, 1, 'Data Engineering', 950.00, '2025-08-01', '2026-06-30'),
+(20, 2, 'Database Design', 900.00, '2025-08-01', '2026-06-30'),
+(21, 3, 'Cloud Architecture', 980.00, '2025-08-01', '2026-06-30'),
+(22, 1, 'Backend Development', 920.00, '2025-08-01', '2026-06-30'),
+(23, 2, 'Cyber Security', 970.00, '2025-08-01', '2026-06-30'),
+(24, 3, 'Business Intelligence', 910.00, '2025-08-01', '2026-06-30');
+
+--#INSERT INTO consultant (consultant_id, company_name, specialization, hourly_rate, contract_start_date, contract_end_date) VALUES
+--(7, 'Tech Solutions AB', 'Data Engineering', 950.00, '2025-08-01', '2026-06-30'),
+--(8, 'Nordic IT Group', 'Database Design', 900.00, '2025-08-01', '2026-06-30');
 
 -- Persondetaljer
 INSERT INTO person_details (person_id, personal_number, email) VALUES
@@ -317,3 +331,4 @@ INSERT INTO student_enrollment (student_id, assignment_id, enrollment_date, grad
 
 (51, 11, '2024-01-18', NULL, 'enrolled'),
 (51, 12, '2024-03-22', NULL, 'enrolled');
+
