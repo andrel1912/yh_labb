@@ -123,6 +123,11 @@ INSERT INTO educator (educator_id, is_permanent, employee_number, employment_dat
 (17, FALSE, 'ED-2004', NULL, 630.00),
 (18, FALSE, 'ED-2005', NULL, 660.00);
 
+-- Konsultföretag 
+INSERT INTO consultant_company (company_name, organization_number, phone, email) VALUES
+('Tech Solutions AB', '556123-1111', '031-100100', 'info@techsolutions.se'),
+('Nordic IT Group', '556234-2222', '08-200200', 'contact@nordicit.se'),
+('Data Experts AB', '556345-3333', '040-300300', 'hello@dataexperts.se');
 
 -- Konsulter
 INSERT INTO consultant (consultant_id, company_id, specialization, hourly_rate, contract_start_date, contract_end_date) VALUES
@@ -132,6 +137,7 @@ INSERT INTO consultant (consultant_id, company_id, specialization, hourly_rate, 
 (22, 1, 'Backend Development', 920.00, '2025-08-01', '2026-06-30'),
 (23, 2, 'Cyber Security', 970.00, '2025-08-01', '2026-06-30'),
 (24, 3, 'Business Intelligence', 910.00, '2025-08-01', '2026-06-30');
+
 
 --#INSERT INTO consultant (consultant_id, company_name, specialization, hourly_rate, contract_start_date, contract_end_date) VALUES
 --(7, 'Tech Solutions AB', 'Data Engineering', 950.00, '2025-08-01', '2026-06-30'),
