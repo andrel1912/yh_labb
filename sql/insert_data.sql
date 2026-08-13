@@ -121,7 +121,13 @@ INSERT INTO educator (educator_id, is_permanent, employee_number, employment_dat
 (15, FALSE, 'ED-2002', NULL, 620.00),
 (16, FALSE, 'ED-2003', NULL, 640.00),
 (17, FALSE, 'ED-2004', NULL, 630.00),
-(18, FALSE, 'ED-2005', NULL, 660.00);
+(18, FALSE, 'ED-2005', NULL, 660.00),
+(19, FALSE, 'ED-C-001', NULL, 950.00),
+(20, FALSE, 'ED-C-002', NULL, 900.00),
+(21, FALSE, 'ED-C-003', NULL, 980.00),
+(22, FALSE, 'ED-C-004', NULL, 920.00),
+(23, FALSE, 'ED-C-005', NULL, 970.00),
+(24, FALSE, 'ED-C-006', NULL, 910.00);
 
 -- Konsultföretag 
 INSERT INTO consultant_company (company_name, organization_number, address, city, has_f_tax, phone, email) VALUES
@@ -132,7 +138,7 @@ INSERT INTO consultant_company (company_name, organization_number, address, city
 -- Konsulter
 INSERT INTO consultant (consultant_id, company_id, specialization, hourly_rate, contract_start_date, contract_end_date) VALUES
 (19, 1, 'Data Engineering', 950.00, '2025-08-01', '2026-06-30'),
-(20, 2, 'Database Design', 900.00, '2025-08-01', '2026-06-30'),
+(20, 2, 'Database Design', 900.00, '2024-01-01', '2026-06-30'),
 (21, 3, 'Cloud Architecture', 980.00, '2025-08-01', '2026-06-30'),
 (22, 1, 'Backend Development', 920.00, '2025-08-01', '2026-06-30'),
 (23, 2, 'Cyber Security', 970.00, '2025-08-01', '2026-06-30'),
@@ -289,7 +295,7 @@ INSERT INTO program_course (program_id, course_id, is_mandatory, semester) VALUE
 -- Kurstillfällen
 INSERT INTO course_assignment (course_id, educator_id, class_id, start_date, end_date) VALUES
 (1, 6, 1, '2024-01-15', '2024-03-15'),
-(2, 13, 1, '2024-03-16', '2024-06-15'),
+(2, 20, 1, '2024-03-16', '2024-06-15'),
 
 (4, 15, 4, '2024-02-01', '2024-04-01'),
 (5, 8, 4, '2024-04-02', '2024-07-01'),

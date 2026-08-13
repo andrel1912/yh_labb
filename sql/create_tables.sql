@@ -112,7 +112,9 @@ CREATE TABLE consultant_company (
     company_id SERIAL PRIMARY KEY,
     company_name VARCHAR(150) NOT NULL UNIQUE,
     organization_number VARCHAR(20) UNIQUE,
-    city VARCHAR(100),
+    address VARCHAR(300), 
+    city VARCHAR(100), 
+    has_f_tax BOOLEAN DEFAULT TRUE,
     email VARCHAR(150),
     phone VARCHAR(20)
 );
