@@ -53,7 +53,8 @@ SELECT
 FROM course
 WHERE is_standalone = TRUE;
 
--- 5 
+--5
+
 SELECT 
     'Test: Program har iterationer' AS test_name,
     p.program_name,
@@ -190,7 +191,7 @@ SELECT
     CONCAT(per.first_name, ' ', per.last_name) AS educator_name,
     CASE 
         WHEN e.is_permanent THEN 'Fast anställd'
-        ELSE 'Konsult/visstid'
+        ELSE 'Ej fast anställd'
     END AS employment_type
 FROM course_assignment ca
 JOIN class c ON ca.class_id = c.class_id
@@ -220,7 +221,7 @@ SELECT
     CONCAT(per.first_name, ' ', per.last_name) AS educator_name,
     CASE 
         WHEN e.is_permanent THEN 'Fast anställd'
-        ELSE 'Konsult/visstid'
+        ELSE 'Ej fast anställd'
     END AS employment_type,
     e.hourly_rate,
     COUNT(DISTINCT ca.assignment_id) AS number_of_course_assignments
