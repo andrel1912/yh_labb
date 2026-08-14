@@ -5,7 +5,7 @@
 
 -- 1 
 SELECT 
-    'Test: Personuppgifter separerade' AS test_name,
+    'Test: Personuppgifter separerade' AS Separerade_personuppgifter,
     COUNT(DISTINCT p.person_id) AS number_of_persons,
     COUNT(DISTINCT pd.person_id) AS number_of_person_details,
     CASE 
@@ -17,7 +17,7 @@ LEFT JOIN person_details pd ON p.person_id = pd.person_id;
 
 -- 2
 SELECT 
-    'Test: Personroller' AS test_name,
+    'Test: Personroller' AS Personroller,
     SUM(CASE WHEN person_type = 'student' THEN 1 ELSE 0 END) AS students,
     SUM(CASE WHEN person_type = 'educator' THEN 1 ELSE 0 END) AS educators,
     SUM(CASE WHEN person_type = 'education_leader' THEN 1 ELSE 0 END) AS education_leaders,
@@ -34,7 +34,7 @@ FROM person;
 
 -- 3
 SELECT 
-    'Test: Site/anläggningar' AS test_name,
+    'Test: Site/anläggningar' AS Anläggningar,
     COUNT(*) AS number_of_sites,
     CASE 
         WHEN COUNT(*) >= 2 THEN 'OK'
@@ -44,7 +44,7 @@ FROM site;
 
 -- 4 
 SELECT 
-    'Test: Fristående kurser' AS test_name,
+    'Test: Fristående kurser' AS Friståendekurser,
     COUNT(*) AS number_of_standalone_courses,
     CASE 
         WHEN COUNT(*) > 0 THEN 'OK'
@@ -56,7 +56,7 @@ WHERE is_standalone = TRUE;
 --5
 
 SELECT 
-    'Test: Program har iterationer' AS test_name,
+    'Test: Program har iterationer' AS Program_iterationer,
     p.program_name,
     COUNT(DISTINCT c.iteration) AS number_of_iterations,
     CASE 
@@ -71,7 +71,7 @@ ORDER BY p.program_name;
 
 -- 6 
 SELECT 
-    'Test: Utbildningsledare och klasser' AS test_name,
+    'Test: Utbildningsledare och klasser' AS Utbildningsledare_och_klasser,
     CONCAT(p.first_name, ' ', p.last_name) AS leader_name,
     COUNT(c.class_id) AS number_of_classes,
     CASE 
